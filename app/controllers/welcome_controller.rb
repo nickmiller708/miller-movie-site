@@ -1,7 +1,11 @@
 class WelcomeController < ApplicationController
-  # GET welcome
-  def index; end
+    # GET welcome
+    def index
+       @active="index" 
+    end
     
-    def resume; end
+    def resume
+        @active="resume"
+    end
 
 end
