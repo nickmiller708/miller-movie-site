@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
     root 'welcome#index'
+    get '/resume', to: 'welcome#resume', as: :resume
   # You can have the root of your site routed with "root"
     resources 'movie_site'
 
