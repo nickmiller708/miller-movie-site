@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ruby Getting Started on Heroku</title>
+  <title>Welcome Friends</title>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag  'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' %> 
-    <%= stylesheet_link_tag    'welcome' %>
+    <%= stylesheet_link_tag   'welcome' %>
   <%= javascript_include_tag  'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render partial 'header' %> 
+<%= render 'header' %> 
 
 <%= yield %>
 
-<%= render partial 'footer' %> 
+<%= render  'footer' %> 
 </body>
 </html>
