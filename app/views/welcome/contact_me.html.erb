@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+      <div class='col-md-8'>
+          <h2> Contact Me</h2>
+     <% if  @notice.present? %> 
+      <div style="color: red;"> 
+       There were some errors when you hit submit!
+       <ul >
+        <% @notice.each do |error| %> 
+          <li> <%= error %> </li> 
+        <% end %> 
+        </ul> 
+      </div> 
+     <% end %> 
+    <%= form_tag contact_me_path,  method: :get do %>
+      <table class='table-condensed '>
+        <%= hidden_field_tag :sent, value: true %> 
+        <tbody> 
+          <tr>
+            <td>
+                <%= label_tag "Enter Your Name" %>
+            </td>
+            <td>
+                <%= text_field_tag :send_name, nil, autocomplete: :off  %>
+            </td>
+        </tr> 
+          <tr>
+            <td>
+              <%= label_tag "Enter a Contact Email" %>
+            </td>
+            <td>
+              <%= text_field_tag :contact_email, nil, autocomplete: :off %>
+            </td>
+          </tr> 
+        <tr>
+          <td>     
+            <%= label_tag "What do you want to say?"  %>
+           </td>
+          <td>
+             <%= text_area_tag :message, nil, { rows: 10, cols: 50 } %>
+          </td> 
+        </tr>
+        <tr>
+          <td>     
+            <%= label_tag "Do you want a copy of the message?"  %>
+           </td>
+          <td>
+             <%= check_box_tag :copy_me %>
+          </td> 
+        </tr>
+        <tr>
+          <td>
+            <%= submit_tag "Contact Me", class: "btn btn-large btn-primary" %>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+      </div>
+    </div>
+  </div> <!-- row -->
+</div>
