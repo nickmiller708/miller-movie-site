@@ -15,11 +15,11 @@ class UserAdminsController < ApplicationController
     entered_password = params[:password]
     if potential_user.present?
        #Check entered password with salted value
-       if entered_password == potential_user.password
+       if entered_password.present? && potential_user.valid_password?(entered_password)
         session[:user] = potential_user.username
         redirect_to admin_homepage_path
         else
-        flash[:danger] = "Invalid Password"
+        flash[:danger] = entered_password.present? ? "Invalid Password" : "Enter a password" 
         redirect_to admin_login_path        
         end 
     else 
@@ -52,7 +52,9 @@ class UserAdminsController < ApplicationController
 
   #Will be the "Create Your Account"  Route
   def create
-    @user_admin = UserAdmin.new(user_admin_params)
+    user = user_admin_params
+    @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
+    @user_admin.encrypt_password(user[:password])
     if @user_admin.valid?
     respond_to do |format|
       if @user_admin.save
