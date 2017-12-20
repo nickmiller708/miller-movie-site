@@ -1,0 +1,34 @@
+<%= form_for(@category) do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class='table-condensed'>
+    <tbody>
+      <tr> 
+        <td> 
+    <%= f.label :category_name %></td>
+         <td>
+         <%= f.text_field :category_name %>
+        </td>
+       </tr>
+       <tr>
+          <td>
+           <%= f.submit "Submit New Review Category" %>
+          </td>
+          </tr>
+    </tbody>
+   </table> 
+  <div class="field">
+
+  </div>
+  <div class="actions">
+     </div>
+<% end %>

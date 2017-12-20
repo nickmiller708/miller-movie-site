@@ -53,6 +53,8 @@ class UserAdminsController < ApplicationController
   #Will be the "Create Your Account"  Route
   def create
     user = user_admin_params
+    invite_only = UserAdmin.find_by(username: 'invite_only')
+    if invite_only.valid_password? params[:invite_password]  
     @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
     @user_admin.encrypt_password(user[:password])
     if @user_admin.valid?
@@ -70,13 +72,19 @@ class UserAdminsController < ApplicationController
       flash[:danger] = "One user already has an account name with username #{params[:user_admin][:username]}"
       redirect_to :back
     end 
+    else 
+      flash[:danger] = "Need an Invite Code to become an Admin. "
+      redirect_to :back
+    end   
   end
 
   # PATCH/PUT /user_admins/1
   # PATCH/PUT /user_admins/1.json
   def update
     respond_to do |format|
-      if @user_admin.update(user_admin_params)
+      new_password = params[:user_admin][:password] 
+      password = @user_admin.encrypt_password(new_password) 
+      if @user_admin.update(user_admin_params.merge(password: password))
         format.html { redirect_to @user_admin, notice: 'User admin was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_admin }
       else
@@ -99,7 +107,7 @@ class UserAdminsController < ApplicationController
   private
     def check_session_user
       if session[:user].nil?
-      flash[:notice] = "No User Logged In! Redirected to Login Page" unless flash[:notice].present?
+      flash[:notice] = "Admin Access Required. No User Logged In! Redirected to Login Page" unless flash[:notice].present?
       redirect_to admin_login_path 
       else 
         @user = UserAdmin.find_by(username: session[:user]) 

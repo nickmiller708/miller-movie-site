@@ -1,0 +1,29 @@
+<div class='container'>
+<p id="notice"><%= notice %></p>
+
+<h1>Listing All ReviewCategories</h1>
+
+<table class='table table-condensed'>
+  <thead>
+    <tr>
+      <th>Category name</th>
+      <th>Number of Reviews </th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.category_name %></td>
+        <td> This will come when I add reviews model </td> 
+        <td> <%= category.created_at %> </td>  
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Go Back to Admin Dashboard', admin_homepage_path %> | <%= link_to 'New Category', new_category_path %> 
+</div> 

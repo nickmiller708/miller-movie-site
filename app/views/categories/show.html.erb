@@ -1,0 +1,12 @@
+<div class='container'>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category name:</strong>
+  <%= @category.category_name %>
+</p>
+
+<%= link_to 'Edit Category Name', edit_category_path(@category) %> |
+<%= link_to 'View All Categories', categories_path  %> | 
+<%= link_to 'Back to Admin Dashboard', admin_homepage_path %> 
+</div>

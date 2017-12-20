@@ -23,7 +23,15 @@
     <tr> 
   <td>    <%= f.label :password %> </td>
   <td>    <%= f.password_field :password %> </td>
-  </tr> 
+  </tr>
+          <tr>
+          <td>
+          <%= label_tag "Invite Code" %> 
+          </td>
+            <td>
+          <%= password_field_tag :invite_password %>  
+              </td>
+          </tr> 
         <tr>
           <td>
     <%= f.submit "Create Your Account", class: 'btn btn-primary' %>

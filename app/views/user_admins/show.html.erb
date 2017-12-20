@@ -1,3 +1,4 @@
+<div class='container'> 
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -15,5 +16,6 @@
   <%= @user_admin.password %>
 </p>
 
-<%= link_to 'Edit', edit_user_admin_path(@user_admin) %> |
-<%= link_to 'Back', user_admins_path %>
+  <%= link_to 'Edit Account Information', edit_user_admin_path(@user_admin) %> |
+  <%= link_to 'Back to Admin Dashboard', admin_homepage_path %>
+</div> 
