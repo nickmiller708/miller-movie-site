@@ -90,3 +90,6 @@
 .container {
   padding-bottom: 15px;
 }
+a:visited {
+  color: #fff; 
+} 
