@@ -1,4 +1,10 @@
 <div class="container">
+  <% if flash[:notice].present? %> 
+      <div style="color: green;"> 
+        Admin Message: 
+        <%= flash[:notice] %> 
+      </div> 
+  <% end %> 
   <div class="row">
       <div class='col-md-8'>
           <h2> Most Recent Posts (Once Available) </h2>

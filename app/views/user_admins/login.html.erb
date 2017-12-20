@@ -1,0 +1,49 @@
+<div class="container">
+  <% if flash[:notice].present? %> 
+      <div style="color: green;"> 
+        Admin Message: 
+        <%= flash[:notice] %> 
+      </div> 
+  <% end %> 
+
+  <div class="row">
+      <div class='col-md-8'>
+          <h2> User Admin Login</h2>
+     <% if  flash[:danger].present? %> 
+      <div style="color: red;"> 
+        Error Processing Login: 
+        <%= flash[:danger] %> 
+      </div> 
+     <% end %> 
+    <%= form_tag process_login_path do %>
+      <table class='table-condensed '>
+        <tbody> 
+          <tr>
+            <td>
+                <%= label_tag "Enter Your Username" %>
+            </td>
+            <td>
+                <%= text_field_tag :username, nil, autocomplete: :off  %>
+            </td>
+        </tr> 
+          <tr>
+            <td>
+              <%= label_tag "Enter Your Password" %>
+            </td>
+            <td>
+              <%= password_field_tag :password, nil, autocomplete: :off %>
+            </td>
+          </tr> 
+        <tr>
+          <td>
+            <%= submit_tag "Login", class: "btn btn-large btn-primary" %>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+      </div>
+    </div>
+  Want to create an account?  <%= link_to "Sign Up Here", new_user_admin_path, class: 'btn btn-primary' %> 
+  </div> <!-- row -->
+</div>
