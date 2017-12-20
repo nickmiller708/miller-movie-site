@@ -90,6 +90,6 @@
 .container {
   padding-bottom: 15px;
 }
-a:visited {
+.btn a:visited {
   color: #fff; 
 } 
