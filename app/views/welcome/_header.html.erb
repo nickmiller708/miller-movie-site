@@ -20,20 +20,17 @@
           <ul class="dropdown-menu" role="menu"> 
             <% if session[:user].present? %> 
    <li>     <a href="<%= admin_homepage_path %>"> Admin Dashboard </a> </li> 
-            <% end %>
-            <li> <a href="<%= admin_login_path %>"> Login to Admin Account </a> </li>
-            <% if session[:user].present? %>
+
             <li> <a href="<%= sign_out_path %>">  Sign Out </a> </li> 
-            <% end %> 
           </ul>
-             <% if session[:user].present? %> 
         <li> 
           <a>
           Welcome Back, <%= session[:user] %> 
           </a>
          </li> 
-        <% end %>  
-
+            <% else session[:user].present? %> 
+            <li> <a href="<%= admin_login_path %>"> Login to Admin Account </a> </li>
+            <% end %> 
     </ul>
   </div>
 </nav>

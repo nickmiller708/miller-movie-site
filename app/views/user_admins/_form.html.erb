@@ -10,20 +10,25 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+     <table class='table-condensed '>
+        <tbody> 
+          <tr>
+          <td>    <%= f.label :name %> </td>
+          <td>    <%= f.text_field :name %> </td> 
+        </tr> 
+          <tr>
+ <td>    <%= f.label :username %></td>
+ <td>    <%= f.text_field :username %> </td>
+          </tr> 
+    <tr> 
+  <td>    <%= f.label :password %> </td>
+  <td>    <%= f.password_field :password %> </td>
+  </tr> 
+        <tr>
+          <td>
+    <%= f.submit "Create Your Account", class: 'btn btn-primary' %>
+          </td>
+          </tr>
+        </tbody>
+      </table>
 <% end %>

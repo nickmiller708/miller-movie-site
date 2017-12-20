@@ -53,16 +53,21 @@ class UserAdminsController < ApplicationController
   #Will be the "Create Your Account"  Route
   def create
     @user_admin = UserAdmin.new(user_admin_params)
-
+    if @user_admin.valid?
     respond_to do |format|
       if @user_admin.save
-        format.html { redirect_to @user_admin, notice: 'User admin was successfully created.' }
+        flash[:notice] = "Congrats! User Account Created!"
+        format.html { redirect_to admin_homepage_path, notice: 'Account Successfully Created!.' }
         format.json { render :show, status: :created, location: @user_admin }
       else
         format.html { render :new }
         format.json { render json: @user_admin.errors, status: :unprocessable_entity }
       end
     end
+    else
+      flash[:danger] = "One user already has an account name with username #{params[:user_admin][:username]}"
+      redirect_to :back
+    end 
   end
 
   # PATCH/PUT /user_admins/1
@@ -92,7 +97,7 @@ class UserAdminsController < ApplicationController
   private
     def check_session_user
       if session[:user].nil?
-      flash[:notice] = "No User Logged In! Redirected to Login Page"
+      flash[:notice] = "No User Logged In! Redirected to Login Page" unless flash[:notice].present?
       redirect_to admin_login_path 
       else 
         @user = UserAdmin.find_by(username: session[:user]) 
