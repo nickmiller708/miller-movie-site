@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   layout 'welcome'
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :check_session_user
+  before_action :check_session_user, except: :show
   # GET /categories
   # GET /categories.json
   def index
@@ -11,6 +11,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    @user  = UserAdmin.find_by(username: session[:user]) if session[:user].present?  
   end
 
   # GET /categories/new
@@ -26,7 +27,7 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(category_params)
-
+    if @category.valid? 
     respond_to do |format|
       if @category.save
         format.html { redirect_to @category, notice: 'Category was successfully created.' }
@@ -36,6 +37,9 @@ class CategoriesController < ApplicationController
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
+    else
+      render :new 
+    end 
   end
 
   # PATCH/PUT /categories/1

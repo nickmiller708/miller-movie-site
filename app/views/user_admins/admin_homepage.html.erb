@@ -5,21 +5,50 @@
             <div class='pull-left'>
               <h2> Welcome Back, <%= @user.name %>!</h2>
              </div>
+            </div>
+              <div class'panel panel-primary'>
+                <div class='panel-heading'> 
+                 Your Most Recent Posts 
+                </div>
+                <div class='panel-body'>
+              <% Category.all.each do |category| %>
+                <% recent_reviews = category.review_posts.map do |element|
+                    element if element.user_admin == @user 
+                  end 
+                 %>            
+                <strong> <%= "Recent #{category.category_name} Reviews" %> </strong> 
+                <table class='table table-condensed'>
+                  <% if recent_reviews.present? %> 
+                  <% recent_reviews.each do |review| %> 
+                    <tr>
+                      <td>
+                        <%= review.title %> 
+                      </td> 
+                      <td>
+                        <%= "Created #{time_ago_in_words(review.created_at)} ago" %>
+                      </td>
+                      <td>
+                        <%= link_to "View Review", review %>
+                      </td> 
+                    </tr>
+                  <% end %> 
+                  <% else %>
+                    <tr>
+                      <td>
+                      No Recent Reviews 
+                      </td> 
+                    </tr>
+                  <% end %> 
+                </table> 
+              <% end %> 
+              </div>
             </div> 
-          <div class='panel panel-primary'>
-              <div class='panel-heading'>
-                Most Recent Posts
-              </div>
-              <div class='panel-body'>
-                Most Recent Posts will be here by Type
-              </div>
-          </div>
       </div>
       <div class="col-md-4">
         <h3><span class="glyphicon glyphicon-exclamation-sign"></span> Post New Reviews </h3>
           <ul>
               <li>  
-                 <%= link_to "Create New Post/Review", admin_homepage_path %> 
+                 <%= link_to "Create New Post/Review", new_review_post_path %> 
               </li>
               <li>
                   <%= link_to "View All Your Posts", admin_homepage_path%> 
@@ -36,12 +65,6 @@
               <li>  
                  <%= link_to "View Account Details", @user %> 
               </li>
-              <li>
-                 <%= link_to "Add Security Question Answers (TBD)", admin_homepage_path %> 
-              </li>
-              <li>
-               <td><%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure? Will set you to inactive, but you can rejoin later!' } %></td>
-              </li> 
           </ul>
     </div>
   </div> <!-- row -->

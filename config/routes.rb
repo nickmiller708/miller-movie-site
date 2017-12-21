@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-    
-  resources :categories
+  resources :review_posts
+resources :categories
   #Admin Pages (Creating users and setting session user)
   resources :user_admins
   get '/admin', to: 'user_admins#admin_homepage', as: :admin_homepage
@@ -14,5 +14,4 @@ Rails.application.routes.draw do
   get '/contact_me', to: 'welcome#contact_me', as: :contact_me
   # You can have the root of your site routed with "root"
     resources 'movie_site'
-
 end

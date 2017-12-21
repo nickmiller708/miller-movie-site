@@ -3,16 +3,28 @@
 <head>
   <title>Welcome Friends</title>
   <%= stylesheet_link_tag  'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' %> 
-    <%= stylesheet_link_tag   'application', media: 'all' %>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <%= javascript_include_tag  'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js' %>
-
+    
+    <%= stylesheet_link_tag   'application', media: 'all' %>    
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <%= render  'welcome/header' %> 
-    <%= yield %>
-    <%= render  'welcome/footer' %> 
+    <div class='row'>
+      <div class='col-md-12'>
+        <%= render  'welcome/header' %> 
+      </div>
+    </div>
+    <div class'row'>
+      <div class='col-md-12'>
+        <%= yield %>
+      </div>
+    </div>
+    <div class'row'>
+      <div class='col-md-12'>
+        <%= render  'welcome/footer' %> 
+      </div>
+    </div> 
 </body>
 </html>

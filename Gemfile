@@ -8,6 +8,8 @@ gem 'pg'
 gem 'rails_12factor', group: :production
 #Safe Password Hashing
 gem 'bcrypt'
+#Good Text Editor
+gem 'bootstrap-wysihtml5-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.3'
 # Use Uglifier as compressor for JavaScript assets

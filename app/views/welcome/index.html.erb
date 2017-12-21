@@ -7,15 +7,42 @@
   <% end %> 
   <div class="row">
       <div class='col-md-8'>
-          <h2> Most Recent Posts (Once Available) </h2>
-          <div class='panel panel-primary'>
-              <div class='panel-heading'>
-                Video Games
+              <div class='panel panel-default'>
+                <div class='panel-heading'> 
+                 Most Recent Reviews 
+                </div>
+                <div class='panel-body'>
+              <% Category.all.each do |category| %>
+                <% recent_reviews = category.review_posts[0 .. 5] %>            
+                <strong> <%= "Recent #{category.category_name} Reviews" %>   </strong> 
+                <table class='table table-condensed'>
+                  <% if recent_reviews.present? %> 
+                  <% recent_reviews.each do |review| %> 
+                    <tr>
+                      <td>
+                        <%= review.title %> 
+                      </td> 
+                      <td>
+                        <%= "Created #{time_ago_in_words(review.created_at)} ago" %>
+                      </td>
+                      <td>
+                        <%= link_to "View Review", review %>
+                      </td> 
+                    </tr>
+                  <% end %> 
+                  <% else %>
+                    <tr>
+                      <td>
+                      No Recent Reviews 
+                      </td> 
+                    </tr>
+                  <% end %> 
+                </table>
+                <%= link_to "View All #{category.category_name} Reviews", category %><br>
+              <% end %>
+
               </div>
-              <div class='panel-body'>
-                Here's where the most recent would be
-              </div>
-          </div>
+            </div> 
       </div>
       <div class="col-md-4">
         <h3><span class="glyphicon glyphicon-question-sign"></span> Who am I? </h3>

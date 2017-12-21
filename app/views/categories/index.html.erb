@@ -7,16 +7,20 @@
   <thead>
     <tr>
       <th>Category name</th>
-      <th>Number of Reviews </th>
+      <th>Number of Reviews Total</th>
+      <th>Number of Reviews By You </th> 
       <th>Created At</th>
     </tr>
   </thead>
-
   <tbody>
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.category_name %></td>
-        <td> This will come when I add reviews model </td> 
+        <td> <%= category.review_posts.length %> </td> 
+        <td> <%= category.review_posts.map do |element|
+                element if element.user_admin == @user 
+                end.length %> 
+          </td> 
         <td> <%= category.created_at %> </td>  
       </tr>
     <% end %>

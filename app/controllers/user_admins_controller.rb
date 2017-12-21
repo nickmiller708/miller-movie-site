@@ -45,6 +45,7 @@ class UserAdminsController < ApplicationController
 
   # GET /user_admins/1/edit
   def edit
+    @hide_invite = true
   end
 
   # POST /user_admins

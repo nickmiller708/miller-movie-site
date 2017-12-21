@@ -1,0 +1,46 @@
+<%= form_for(@review_post) do |f| %>
+  <% if @review_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@review_post.errors.count, "error") %> prohibited this review_post from being saved:</h2>
+      <ul>
+      <% @review_post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+      <table class='table-condensed '>
+        <%= f.hidden_field :user_admin_id, value: @user.id  %> 
+        <tbody> 
+          <tr>
+            <td>
+                <%= label_tag "Title of Review" %>
+            </td>
+            <td>
+                <%= f.text_field :title, autocomplete: :off, class: 'form-control'  %>
+            </td>
+        </tr> 
+          <tr>
+            <td>
+              <%= label_tag "Select Review Category" %>
+            </td>
+            <td>
+              <%= f.select :category_id, options_from_collection_for_select(Category.all, 'id', 'category_name'), {autocomplete: :off, class: 'form-control'}  %>
+            </td>
+          </tr> 
+        <tr>
+          <td>     
+            <%= label_tag "Write Your Review"  %>
+           </td>
+          <td>
+             <%= f.text_area :contents, {  rows: 10, cols: 50, class: 'editor', class: 'form-control' } %>
+          </td> 
+        </tr>
+        <tr>
+          <td>
+            <%= f.submit "Post Your Review", class: "btn btn-large btn-primary" %>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+<% end %>

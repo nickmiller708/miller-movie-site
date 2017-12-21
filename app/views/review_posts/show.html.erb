@@ -1,0 +1,38 @@
+<div class="container">
+  <% if flash[:notice].present? %> 
+      <div style="color: green;"> 
+        Admin Message: 
+        <%= flash[:notice] %> 
+      </div> 
+  <% end %> 
+  <div class="row">
+      <div class='col-md-8'>
+          <h4> <%= @review_post.title %> </h4>
+          <div class='container-fluid'>
+            <% review_contents = @review_post.contents.split(/\r\n/) %> 
+            <% review_contents.each do |content| %> 
+              <%= content %> <br>
+            <% end %> 
+          </div> 
+      </div>
+      <div class="col-md-4">
+        <h3><span class="glyphicon glyphicon-question-sign"></span> Author Information </h3>
+          <ul>
+              <li> 
+                <strong> Written By: </strong> <%= @review_post.user_admin.name %>  
+              </li>
+              <li>
+                 <strong> Created At: </strong> <%= time_ago_in_words(@review_post.created_at) %> 
+              </li>
+              <li>
+                 <strong> Last Updated: </strong> <%= time_ago_in_words(@review_post.updated_at) %> 
+              </li>
+          </ul>
+
+    </div>
+  </div> <!-- row -->
+</div>
+<% if @editable %> 
+<%= link_to 'Edit', edit_review_post_path(@review_post) %> |
+<% end %> 
+<%= link_to 'Back to Homepage', :back %>

@@ -24,6 +24,7 @@
   <td>    <%= f.label :password %> </td>
   <td>    <%= f.password_field :password %> </td>
   </tr>
+        <% unless @hide_invite %> 
           <tr>
           <td>
           <%= label_tag "Invite Code" %> 
@@ -32,6 +33,7 @@
           <%= password_field_tag :invite_password %>  
               </td>
           </tr> 
+          <% end %> 
         <tr>
           <td>
     <%= f.submit "Create Your Account", class: 'btn btn-primary' %>

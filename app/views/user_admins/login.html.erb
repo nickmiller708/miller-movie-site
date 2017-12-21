@@ -34,6 +34,14 @@
               <%= password_field_tag :password, nil, autocomplete: :off %>
             </td>
           </tr> 
+          <tr>
+            <td>
+              <%= label_tag "Remember Me?" %>
+            </td>
+            <td>
+              <%= check_box_tag :remember %>
+            </td>
+          </tr> 
         <tr>
           <td>
             <%= submit_tag "Login", class: "btn btn-large btn-primary" %>

@@ -2,11 +2,60 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Category name:</strong>
-  <%= @category.category_name %>
+  <strong>All <%= @category.category_name.titleize %> Reviews</strong>
 </p>
-
+   <div >
+                <div class='panel-heading'> 
+                 Your Most Recent Posts 
+                </div>
+                <div class='panel-body'>
+                <% recent_reviews = @category.review_posts       %>            
+                <table class='table table-condensed'>
+                  <thead>
+                    <th>
+                      Review Title
+                    </th>
+                    <th>
+                      Written By
+                    </th>
+                    <th>
+                      Created At
+                    </th>
+                    <th>
+                      View Review
+                    </th>
+                  </thead>
+                  <% if recent_reviews.present? %> 
+                  <% recent_reviews.each do |review| %> 
+                    <tr>
+                      <td>
+                        <%= review.title %> 
+                      </td> 
+                      <td>
+                        <%= review.user_admin.name %> 
+                      </td> 
+                      <td>
+                        <%= "Created #{time_ago_in_words(review.created_at)} ago" %>
+                      </td>
+                      <td>
+                        <%= link_to "View Review", review %>
+                      </td> 
+                    </tr>
+                  <% end %> 
+                  <% else %>
+                    <tr>
+                      <td>
+                      No Recent Reviews 
+                      </td> 
+                    </tr>
+                  <% end %> 
+                </table> 
+              </div>
+            </div> 
+<% if @user %> 
 <%= link_to 'Edit Category Name', edit_category_path(@category) %> |
 <%= link_to 'View All Categories', categories_path  %> | 
 <%= link_to 'Back to Admin Dashboard', admin_homepage_path %> 
+<% end %>
+  <%= link_to 'Back to Homepage', '/' %> 
 </div>
