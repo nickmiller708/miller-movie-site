@@ -57,7 +57,7 @@ class UserAdminsController < ApplicationController
   def create
     user = user_admin_params
     invite_only = UserAdmin.find_by(username: 'invite_only') unless session[:user].present?
-    if session[:user].present? || invite_only.valid_password? params[:invite_password]  
+    if session[:user].present? | invite_only.valid_password? params[:invite_password]  
     @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
     @user_admin.encrypt_password(user[:password])
     if @user_admin.valid?
