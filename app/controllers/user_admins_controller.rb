@@ -41,6 +41,8 @@ class UserAdminsController < ApplicationController
   # GET /user_admins/new
   def new
     @user_admin = UserAdmin.new
+    @hide_invite = session[:user].present?
+
   end
 
   # GET /user_admins/1/edit

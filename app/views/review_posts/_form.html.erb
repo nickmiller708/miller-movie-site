@@ -25,7 +25,7 @@
               <%= label_tag "Select Review Category" %>
             </td>
             <td>
-              <%= f.select :category_id, options_from_collection_for_select(Category.all, 'id', 'category_name'), {autocomplete: :off, class: 'form-control'}  %>
+              <%= f.select :category_id, options_from_collection_for_select(Category.all, 'id', 'category_name', selected = @review_post.category_id), {autocomplete: :off, class: 'form-control'}  %>
             </td>
           </tr> 
         <tr>

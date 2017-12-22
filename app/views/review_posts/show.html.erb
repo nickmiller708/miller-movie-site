@@ -27,12 +27,16 @@
               <li>
                  <strong> Last Updated: </strong> <%= time_ago_in_words(@review_post.updated_at) %> 
               </li>
+              <li>
+                 <strong> Review Category: </strong> <%= @review_post.category.category_name %> 
+              </li>
           </ul>
 
     </div>
-  </div> <!-- row -->
-</div>
 <% if @editable %> 
 <%= link_to 'Edit', edit_review_post_path(@review_post) %> |
 <% end %> 
 <%= link_to 'Back to Homepage', :back %>
+  </div> <!-- row -->
+</div>
+
