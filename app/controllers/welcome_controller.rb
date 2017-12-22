@@ -24,6 +24,8 @@ class WelcomeController < ApplicationController
         ContactMe.contact_me(params).deliver_now!
       end 
     end 
+    flash[:notice] = "Emails sent"
+    redirect_to contact_me_path 
    end
   end  
   private

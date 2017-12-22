@@ -1,7 +1,19 @@
 Hey! <br>
   Thanks for checking out the site and sending me a message. I will get back as soon as I can. Here's the copy of the message you requested <br>
+<div class='panel panel-primary'>
+<div class'panel-heading'>
+  Your Message
+</div>
+<div class='panel-body'>
 
-<%= render partial: 'mailer_text', locals: {sender: @sender, sender_email: @sender_email, message: @message} %>
+Hey, Nick! <br>
+  <%= @sender %> sent you a message! <br>
+
+  Here is their message: <br>
+  <%= @message %> 
+
+  If you'd like, you can contact them at <%= @sender_email %> 
+</div>
 <br>
 <strong> Note: </strong> Please do not respond to this email! It is sent from an unmonitored account.
 <br>
