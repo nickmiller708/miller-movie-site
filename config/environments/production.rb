@@ -29,7 +29,7 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
   
-   config.action_mailer.default_url_options = { :host => "www.millerhonestreview.com" } 
+   config.action_mailer.default_url_options = { :host => "miller-movie-site.herokuapp.com" } 
 config.action_mailer.delivery_method = :smpt
 config.action_mailer.smtp_settings = {
   address:              'smtp.gmail.com',
