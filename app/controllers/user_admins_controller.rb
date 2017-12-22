@@ -57,9 +57,10 @@ class UserAdminsController < ApplicationController
   def create
     user = user_admin_params
     invite_only = UserAdmin.find_by(username: 'invite_only') unless session[:user].present?
-    if session[:user].present? | invite_only.valid_password? params[:invite_password]  
-    @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
-    @user_admin.encrypt_password(user[:password])
+    if (session[:user].present?) || (invite_only.valid_password? params[:invite_password] )
+      @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
+      @user_admin.encrypt_password(user[:password])
+    end   
     if @user_admin.valid?
     respond_to do |format|
       if @user_admin.save
@@ -71,18 +72,19 @@ class UserAdminsController < ApplicationController
         format.json { render json: @user_admin.errors, status: :unprocessable_entity }
       end
     end
-    else
-      flash[:danger] = "One user already has an account name with username #{params[:user_admin][:username]}"
-      redirect_to :back
-    end 
     else 
+      if sesion[:user].nil?
       flash[:danger] = "Need an Invite Code to become an Admin. "
       redirect_to :back
-    end   
-  end
+      else 
+      flash[:danger] = "One user already has an account name with username #{params[:user_admin][:username]}"
+      redirect_to :back
+        end 
+      end
+  end 
 
   # PATCH/PUT /user_admins/1
-  # PATCH/PUT /user_admins/1.json
+# PATCH/PUT /user_admins/1.json
   def update
     respond_to do |format|
       new_password = params[:user_admin][:password] 
