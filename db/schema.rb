@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221030337) do
+ActiveRecord::Schema.define(version: 20171225053435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,37 @@ ActiveRecord::Schema.define(version: 20171221030337) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "comment"
+    t.string   "name"
+    t.integer  "review_post_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "relevant_links", force: :cascade do |t|
+    t.integer  "review_post_id"
+    t.string   "title"
+    t.string   "source"
+    t.string   "link_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "relevant_links", ["review_post_id"], name: "index_relevant_links_on_review_post_id", using: :btree
+
+  create_table "relevants", force: :cascade do |t|
+    t.string   "Link"
+    t.integer  "review_post_id"
+    t.string   "title"
+    t.string   "source"
+    t.string   "link_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "relevants", ["review_post_id"], name: "index_relevants_on_review_post_id", using: :btree
 
   create_table "review_posts", force: :cascade do |t|
     t.integer  "user_admin_id"
@@ -72,6 +103,8 @@ ActiveRecord::Schema.define(version: 20171221030337) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "relevant_links", "review_posts"
+  add_foreign_key "relevants", "review_posts"
   add_foreign_key "reviews", "categories"
   add_foreign_key "reviews", "users"
 end

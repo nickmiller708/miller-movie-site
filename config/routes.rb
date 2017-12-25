@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :relevant_links
+  resources :comments
   resources :review_posts
 resources :categories
   #Admin Pages (Creating users and setting session user)

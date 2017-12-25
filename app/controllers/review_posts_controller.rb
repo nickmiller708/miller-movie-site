@@ -13,6 +13,8 @@ class ReviewPostsController < ApplicationController
   def show
     @user  = UserAdmin.find_by(username: session[:user]) if session[:user].present?  
     @editable = @review_post.user_admin == @user 
+    @comment = Comment.new
+    @relevant_link = RelevantLink.new 
   end
 
   # GET /review_posts/new

@@ -1,0 +1,56 @@
+<%= form_for(@relevant_link) do |f| %>
+  <% if @relevant_link.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@relevant_link.errors.count, "error") %> prohibited this relevant_link from being saved:</h2>
+
+      <ul>
+      <% @relevant_link.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class='table-condensed'>
+    <tbody>
+
+      <tr> 
+        <td> 
+          <% if @review_post.present? %>
+            <%= f.hidden_field :review_post_id, value: @review_post.id %> 
+          <% else %> 
+            <%= f.label "Select the Review for Link"%></td>
+         <td>
+               <%= f.select :category_id, options_from_collection_for_select(ReviewPost.all, 'id', 'title', selected = @review_post.category_id), {autocomplete: :off, class: 'form-control'}  %>   
+      <% end %> 
+        </td>
+       </tr>
+      <tr> 
+        <td> 
+            <%= f.label "Title of Link" %></td>
+         <td>
+         <%= f.text_field :title %>
+        </td>
+       </tr>
+      <tr> 
+        <td> 
+            <%= f.label "Link to Source" %></td>
+         <td>
+         <%= f.text_field :source %>
+        </td>
+       </tr>
+      <tr> 
+        <td> 
+            <%= f.label "What type of link?" %></td>
+         <td>
+             <%= f.select :link_type, options_for_select(['Video', 'Article']), {autocomplete: :off, class: 'form-control'}  %>   
+        </td>
+       </tr>
+       <tr>
+          <td>
+           <%= f.submit "Submit New Review Category", class: 'text-center' %>
+          </td>
+          </tr>
+    </tbody>
+   </table> 
+<% end %>

@@ -1,0 +1,3 @@
+class RelevantLink < ActiveRecord::Base
+  has_one :reviwe_post
+end

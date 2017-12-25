@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  review_post_id: 
+  title: MyString
+  source: MyString
+  link_type: MyString
+
+two:
+  review_post_id: 
+  title: MyString
+  source: MyString
+  link_type: MyString

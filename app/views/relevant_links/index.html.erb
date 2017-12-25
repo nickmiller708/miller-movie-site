@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Relevant Links</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @relevant_links.each do |relevant_link| %>
+      <tr>
+        <td><%= link_to 'Show', relevant_link %></td>
+        <td><%= link_to 'Edit', edit_relevant_link_path(relevant_link) %></td>
+        <td><%= link_to 'Destroy', relevant_link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Relevant link', new_relevant_link_path %>

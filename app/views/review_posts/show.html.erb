@@ -14,6 +14,44 @@
               <%= content %> <br>
             <% end %> 
           </div> 
+     <%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this review_post from being saved:</h2>
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+      <%= f.hidden_field :review_post_id, value: params[:id] %> 
+      <table class='table-condensed '>
+        <tbody> 
+          <tr>
+            <td>
+                <%= label_tag "Enter Your Name: " %>
+            </td>
+            <td>
+                <%= f.text_field :name, autocomplete: :off, class: 'form-control'  %>
+            </td>
+        </tr> 
+          <tr>
+            <td>
+              <%= label_tag "Comments (Required):" %>
+            </td>
+            <td>
+              <%= f.text_area :comment, {autocomplete: :off, class: 'form-control', rows: 10, cols: '100%'}  %>
+            </td>
+          </tr> 
+        <tr>
+          <td>
+            <%= f.submit "Post Comment", class: "btn btn-large btn-primary" %>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+<% end %>
       </div>
       <div class="col-md-4">
         <h3><span class="glyphicon glyphicon-question-sign"></span> Author Information </h3>
@@ -31,9 +69,18 @@
                  <strong> Review Category: </strong> <%= @review_post.category.category_name %> 
               </li>
           </ul>
-
-    </div>
-
+        <h3> Relevant Links </h3>
+          <% @review_post.relevant_links.each do |element|  %>
+            <% if element.link_type == 'Article' %> 
+              <a href="<%= element.source %>"> <%= element.title %> </a> 
+            <% else %> 
+              <strong> <%= element.title %> </strong> <br> 
+              <%= convert_watch_url(element.source).html_safe %> 
+            <% end %> 
+          <br> 
+          <% end %> 
+          <%= render partial: 'relevant_links/form' if @editable %> 
+</div>
   </div> <!-- row -->
 <% if @editable %> 
 <%= link_to 'Edit', edit_review_post_path(@review_post) %> |

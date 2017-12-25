@@ -1,0 +1,2 @@
+module RelevantLinksHelper
+end
