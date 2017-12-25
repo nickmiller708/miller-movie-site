@@ -51,6 +51,10 @@
           </tr>
         </tbody>
       </table>
+<% if @editable %> 
+<%= link_to 'Edit', edit_review_post_path(@review_post) %> |
+<% end %> 
+<%= link_to 'Back to Homepage', '/' %>
 <% end %>
       </div>
       <div class="col-md-4">
@@ -82,9 +86,6 @@
           <%= render partial: 'relevant_links/form' if @editable %> 
 </div>
   </div> <!-- row -->
-<% if @editable %> 
-<%= link_to 'Edit', edit_review_post_path(@review_post) %> |
-<% end %> 
-<%= link_to 'Back to Homepage', '/' %>
+
 </div>
 
