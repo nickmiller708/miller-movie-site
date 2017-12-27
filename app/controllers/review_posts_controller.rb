@@ -24,6 +24,7 @@ class ReviewPostsController < ApplicationController
 
   # GET /review_posts/1/edit
   def edit
+    @editable = true 
   end
 
   # POST /review_posts
@@ -67,13 +68,15 @@ class ReviewPostsController < ApplicationController
 
   private
     def check_session_user
-      if session[:user].nil?
+      auth_token = cookies[:authentication_token] || cookies.permanent[:authentication_token] || nil
+      if auth_token.nil?
       flash[:notice] = "Admin Access Required. No User Logged In! Redirected to Login Page" unless flash[:notice].present?
       redirect_to admin_login_path 
       else 
-        @user = UserAdmin.find_by(username: session[:user]) 
+        @user = UserAdmin.find_by(password_token: cookies[:authentication_token]) 
       end 
     end 
+
     # Use callbacks to share common setup or constraints between actions.
     def set_review_post
       @review_post = ReviewPost.find(params[:id])

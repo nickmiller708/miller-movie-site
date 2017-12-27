@@ -38,7 +38,8 @@
         </tr>
         <tr>
           <td>
-            <%= f.submit "Post Your Review", class: "btn btn-large btn-primary" %>
+            <% button_text = @editable ? "Edit Your Review" : "Post Your Review" %> 
+            <%= f.submit button_text, class: "btn btn-large btn-primary" %>
           </td>
           </tr>
         </tbody>

@@ -4,7 +4,8 @@ class UserAdminsController < ApplicationController
   layout 'welcome'
 
   def sign_out
-    session[:user] = nil
+    cookies[:authentication_token] = nil
+    cookies.permanent[:authentication_token] = nil
     flash[:notice] = "Succesfully Signed Out" 
     redirect_to '/'
   end 
@@ -16,8 +17,12 @@ class UserAdminsController < ApplicationController
     if potential_user.present?
        #Check entered password with salted value
        if entered_password.present? && potential_user.valid_password?(entered_password)
-        session[:user] = potential_user.username
-        redirect_to admin_homepage_path
+          if params[:remember].present?
+            cookies.permanent[:authentication_token] = potential_user.password_token
+          else
+            cookies[:authentication_token] = potential_user.password_token
+          end
+            redirect_to admin_homepage_path
         else
         flash[:danger] = entered_password.present? ? "Invalid Password" : "Enter a password" 
         redirect_to admin_login_path        
@@ -48,6 +53,7 @@ class UserAdminsController < ApplicationController
   # GET /user_admins/1/edit
   def edit
     @hide_invite = true
+    @editable = true
   end
 
   # POST /user_admins
@@ -56,8 +62,11 @@ class UserAdminsController < ApplicationController
   #Will be the "Create Your Account"  Route
   def create
     user = user_admin_params
-    invite_only = UserAdmin.find_by(username: 'invite_only') unless session[:user].present?
-    if (session[:user].present?) || (invite_only.valid_password? params[:invite_password] )
+    invite_only = UserAdmin.find_by(username: 'invite_only') unless cookies[:authentication_token].present?
+    puts invite_only.to_json
+    puts invite_only.valid_password?('fuckmejerry')
+    puts params[:invite_password]
+    if (cookies[:authentication_token].present?) || (invite_only.valid_password? params[:invite_password] )
       @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
       @user_admin.encrypt_password(user[:password])
     end   
@@ -73,8 +82,8 @@ class UserAdminsController < ApplicationController
       end
     end
     else 
-      if sesion[:user].nil?
-      flash[:danger] = "Need an Invite Code to become an Admin. "
+      if cookies[:authentication_token].nil?
+      flash[:danger] = @user_admin.errors.full_messages.join(' <br>') || "Need an Invite Code to become an Admin. "
       redirect_to :back
       else 
       flash[:danger] = "One user already has an account name with username #{params[:user_admin][:username]}"
@@ -88,7 +97,7 @@ class UserAdminsController < ApplicationController
   def update
     respond_to do |format|
       new_password = params[:user_admin][:password] 
-      password = @user_admin.encrypt_password(new_password) 
+      password = new_password.present? ? @user_admin.encrypt_password(new_password) : @user_admin.password
       if @user_admin.update(user_admin_params.merge(password: password))
         format.html { redirect_to @user_admin, notice: 'User admin was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_admin }
@@ -111,11 +120,12 @@ class UserAdminsController < ApplicationController
 
   private
     def check_session_user
-      if session[:user].nil?
+      auth_token = cookies[:authentication_token] || cookies.permanent[:authentication_token] || nil
+      if auth_token.nil?
       flash[:notice] = "Admin Access Required. No User Logged In! Redirected to Login Page" unless flash[:notice].present?
       redirect_to admin_login_path 
       else 
-        @user = UserAdmin.find_by(username: session[:user]) 
+        @user = UserAdmin.find_by(password_token: cookies[:authentication_token]) 
       end 
     end 
     # Use callbacks to share common setup or constraints between actions.

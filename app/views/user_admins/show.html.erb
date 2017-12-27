@@ -5,16 +5,15 @@
   <strong>Name:</strong>
   <%= @user_admin.name %>
 </p>
-
+<p>
+  <strong>Email Address:</strong>
+  <%= @user_admin.email %>
+</p>
 <p>
   <strong>Username:</strong>
   <%= @user_admin.username %>
 </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user_admin.password %>
-</p>
 
   <%= link_to 'Edit Account Information', edit_user_admin_path(@user_admin) %> |
   <%= link_to 'Back to Admin Dashboard', admin_homepage_path %>

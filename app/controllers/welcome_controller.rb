@@ -1,5 +1,7 @@
 require 'pry'
 class WelcomeController < ApplicationController
+  before_action :check_session_user
+
     # GET welcome
   def index
     @active="index" 
@@ -37,4 +39,11 @@ class WelcomeController < ApplicationController
       error_text << "No contents entered in the message. Can't send that :(" if params[:message].nil?
     error_text
    end 
+
+    def check_session_user
+      auth_token = cookies[:authentication_token] || cookies.permanent[:authentication_token] || nil
+      if auth_token.present?
+        @user = UserAdmin.find_by(password_token: cookies[:authentication_token]) 
+      end 
+    end 
   end

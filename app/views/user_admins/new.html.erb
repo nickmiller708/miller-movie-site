@@ -4,14 +4,14 @@
   <% if flash[:notice].present? %> 
       <div style="color: green;"> 
         Admin Message: 
-        <%= flash[:notice] %> 
+        <%= flash[:notice].join(' \n') %> 
       </div> 
   <% end %> 
 
      <% if  flash[:danger].present? %> 
       <div style="color: red;"> 
-        Error Processing Login: 
-        <%= flash[:danger] %> 
+        Error Processing Login: <br>  
+        <%= flash[:danger].html_safe %> 
       </div> 
      <% end %> 
 
