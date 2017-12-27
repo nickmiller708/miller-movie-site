@@ -8,25 +8,13 @@
   <%= javascript_include_tag  'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js' %>
     
     <%= stylesheet_link_tag   'application', media: 'all' %>    
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %> 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <%= csrf_meta_tags %>
 <style>
-.wrapper {
-    height: 100vh;
-    display: flex;
-
-    /* Direction of the items, can be row or column */
-    flex-direction: column;
-}
-
-.footer {
-    height: 30px;
-}
-
-.main {
-    flex: 1;
+body {
+  padding-bottom: 250px;
 }
 </style>
 </head>
@@ -37,8 +25,11 @@
   <div class='container-fluid main'> 
 <%= yield %> 
   </div>
+  <div class='row'>
+  <div class='col-md-12'>
   <div class='footer'>
         <%= render  'welcome/footer' %> 
   </div>
+  </div> </div>
 </body>
 </html>
