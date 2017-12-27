@@ -9,11 +9,36 @@
     
     <%= stylesheet_link_tag   'application', media: 'all' %>    
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
   <%= csrf_meta_tags %>
+<style>
+.wrapper {
+    height: 100vh;
+    display: flex;
+
+    /* Direction of the items, can be row or column */
+    flex-direction: column;
+}
+
+.footer {
+    height: 30px;
+}
+
+.main {
+    flex: 1;
+}
+</style>
 </head>
 <body>
-      <%= render  'welcome/header' %> 
+  <div class='header'>
+      <%= render  'welcome/header' %>
+  </div>
+  <div class='container-fluid main'> 
 <%= yield %> 
+  </div>
+  <div class='footer'>
         <%= render  'welcome/footer' %> 
+  </div>
 </body>
 </html>
