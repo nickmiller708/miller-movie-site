@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227101108) do
+ActiveRecord::Schema.define(version: 20171229051116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20171227101108) do
     t.integer  "review_post_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "progresses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relevant_links", force: :cascade do |t|
@@ -74,6 +81,28 @@ ActiveRecord::Schema.define(version: 20171227101108) do
   add_index "reviews", ["category_id"], name: "index_reviews_on_category_id", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
+  create_table "task_boards", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "task_boards", ["owner_type", "owner_id"], name: "index_task_boards_on_owner_type_and_owner_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "progress_id"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "tasks", ["owner_type", "owner_id"], name: "index_tasks_on_owner_type_and_owner_id", using: :btree
+  add_index "tasks", ["progress_id"], name: "index_tasks_on_progress_id", using: :btree
+
   create_table "user_admins", force: :cascade do |t|
     t.string   "name"
     t.string   "username"
@@ -83,6 +112,7 @@ ActiveRecord::Schema.define(version: 20171227101108) do
     t.string   "email"
     t.string   "password_token"
     t.string   "reset_token"
+    t.string   "user_type"
   end
 
   create_table "useradmins", force: :cascade do |t|
@@ -110,4 +140,5 @@ ActiveRecord::Schema.define(version: 20171227101108) do
   add_foreign_key "relevants", "review_posts"
   add_foreign_key "reviews", "categories"
   add_foreign_key "reviews", "users"
+  add_foreign_key "tasks", "progresses"
 end

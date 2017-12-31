@@ -13,4 +13,11 @@ class ContactMe < ApplicationMailer
     @message = params[:message]
     mail(to: @sender_email, from: 'millerhonestreview@gmail.com', subject: "Sender Copy: New Message from #{@sender}")
   end  
+  def reset_password(user)
+    user.generate_token(:reset_token) 
+    user.save
+    @user = user 
+    contact_email = user.email 
+     mail(to: contact_email, from: 'millerhonestreview@gmail.com', subject: "Reset Your Password")
+  end 
 end

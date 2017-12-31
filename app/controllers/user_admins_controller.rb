@@ -22,10 +22,10 @@ class UserAdminsController < ApplicationController
           else
             cookies[:authentication_token] = potential_user.password_token
           end
-            redirect_to admin_homepage_path
+          potential_user.user_type.eql?('admin') ? redirect_to admin_login_path : redirect_to user_homepage_path
         else
         flash[:danger] = entered_password.present? ? "Invalid Password" : "Enter a password" 
-        redirect_to admin_login_path        
+
         end 
     else 
       flash[:danger] = "There is no Admin with username #{params[:username]}"
@@ -62,11 +62,8 @@ class UserAdminsController < ApplicationController
   #Will be the "Create Your Account"  Route
   def create
     user = user_admin_params
-    invite_only = UserAdmin.find_by(username: 'invite_only') unless cookies[:authentication_token].present?
-    puts invite_only.to_json
-    puts invite_only.valid_password?('fuckmejerry')
-    puts params[:invite_password]
-    if (cookies[:authentication_token].present?) || (invite_only.valid_password? params[:invite_password] )
+    invite_only = UserAdmin.find_by(username: 'invite_only') unless cookies[:authentication_token].present? || params[:user_type].eql?('normal')
+    if (cookies[:authentication_token].present?) i(params[:user_type].eql?('normal')) || (invite_only.valid_password? params[:invite_password] )
       @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
       @user_admin.encrypt_password(user[:password])
     end   
@@ -93,7 +90,7 @@ class UserAdminsController < ApplicationController
   end 
 
   # PATCH/PUT /user_admins/1
-# PATCH/PUT /user_admins/1.json
+  # PATCH/PUT /user_admins/1.json
   def update
     respond_to do |format|
       new_password = params[:user_admin][:password] 
