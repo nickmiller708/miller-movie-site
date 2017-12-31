@@ -1,6 +1,6 @@
 class UserAdminsController < ApplicationController
   before_action :set_user_admin, only: [:show, :edit, :update, :destroy]
-  before_action :check_session_user, except: [:login, :process_login, :create, :new] 
+  before_action :check_session_user, except: [:login, :process_login, :create, :new, :user_login] 
   layout 'welcome'
 
   def sign_out
@@ -11,6 +11,7 @@ class UserAdminsController < ApplicationController
   end 
   def admin_homepage;  end
   def login; end 
+  def user_login; end
   def process_login
     potential_user =  UserAdmin.find_by(username: params[:username])
     entered_password = params[:password]
@@ -22,7 +23,8 @@ class UserAdminsController < ApplicationController
           else
             cookies[:authentication_token] = potential_user.password_token
           end
-          potential_user.user_type.eql?('admin') ? redirect_to admin_login_path : redirect_to user_homepage_path
+          path_name = potential_user.user_type.eql?('admin') ? admin_login_path : user_homepage_path
+          redirect_to path_name
         else
         flash[:danger] = entered_password.present? ? "Invalid Password" : "Enter a password" 
 
@@ -63,7 +65,7 @@ class UserAdminsController < ApplicationController
   def create
     user = user_admin_params
     invite_only = UserAdmin.find_by(username: 'invite_only') unless cookies[:authentication_token].present? || params[:user_type].eql?('normal')
-    if (cookies[:authentication_token].present?) i(params[:user_type].eql?('normal')) || (invite_only.valid_password? params[:invite_password] )
+    if (cookies[:authentication_token].present?) || (params[:user_type].eql?('normal')) || (invite_only.valid_password? params[:invite_password] )
       @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
       @user_admin.encrypt_password(user[:password])
     end   
