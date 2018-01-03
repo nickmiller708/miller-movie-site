@@ -23,7 +23,7 @@ class UserAdminsController < ApplicationController
           else
             cookies[:authentication_token] = potential_user.password_token
           end
-          path_name = potential_user.user_type.eql?('admin') ? admin_login_path : user_homepage_path
+          path_name = potential_user.user_type.eql?('admin') ? admin_homepage_path : user_homepage_path
           redirect_to path_name
         else
         flash[:danger] = entered_password.present? ? "Invalid Password" : "Enter a password" 

@@ -18,36 +18,34 @@
         <li class="dropdown" >
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-lock"></span> Admin Settings <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu"> 
-            <% if @user %> 
+            <% if @user.present? && @user.user_type.eql?('admin') %> 
    <li>     <a href="<%= admin_homepage_path %>"> Admin Dashboard </a> </li> 
 
             <li> <a href="<%= sign_out_path %>">  Sign Out </a> </li> 
-          </ul>
-        <li> 
-          <a>
-          Welcome Back, <%= @user.username %> 
-          </a>
-         </li> 
+
             <% else  %> 
             <li> <a href="<%= admin_login_path %>"> Login to Admin Account </a> </li>
             <% end %> 
-        </ul>
+          </ul> 
+        </li> 
         <li class="dropdown" >
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-lock"></span> User Login <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu"> 
-            <% if @user %> 
+            <% if @user.present? && @user.user_type.eql?('user') %> 
    <li>     <a href="<%= user_homepage_path %>"> Homepage </a> </li> 
 
             <li> <a href="<%= sign_out_path %>">  Sign Out </a> </li> 
           </ul>
-        <li> 
-          <a>
-          Welcome Back, <%= @user.username %> 
-          </a>
-         </li> 
+
             <% else  %> 
             <li> <a href="<%= user_login_path %>"> Login to User Account </a> </li>
             <% end %> 
         </ul>
+        </li> 
+        <li> <a>
+          <%= "Welcome Back, #{@user.name}" if @user.present? %>  </a> 
+        </li>
+        </ul>
+
   </div>
 </nav>

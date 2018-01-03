@@ -11,7 +11,8 @@ class ReviewPostsController < ApplicationController
   # GET /review_posts/1
   # GET /review_posts/1.json
   def show
-    @user  = UserAdmin.find_by(username: session[:user]) if session[:user].present?  
+    auth_token = cookies[:authentication_token] || cookies.permanent[:authentication_token] 
+    @user  = UserAdmin.find_by(password_token: auth_token) if auth_token.present?  
     @editable = @review_post.user_admin == @user 
     @comment = Comment.new
     @relevant_link = RelevantLink.new 
