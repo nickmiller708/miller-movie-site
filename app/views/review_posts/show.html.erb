@@ -12,7 +12,13 @@
             <% review_contents = @review_post.contents.split(/\r\n/) %> 
             <% review_contents.each do |content| %> 
               <%= content %> <br>
-            <% end %> 
+            <% end %>  
+            <h4>  Comments </h4>
+              <% @review_post.comments.each do |comment| %>
+               Posted By: <%= comment.name.present? ? comment.name : "Anonymous" %> | Posted At: <%= time_ago_in_words(comment.created_at) %>  <br> 
+              <%= comment.comment %>
+        <br> 
+<% end %> 
           </div> 
      <%= form_for(@comment) do |f| %>
   <% if @comment.errors.any? %>
@@ -51,6 +57,7 @@
           </tr>
         </tbody>
       </table>
+
 <% if @editable %> 
 <%= link_to 'Edit', edit_review_post_path(@review_post) %> |
 <% end %> 
