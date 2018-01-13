@@ -5,6 +5,7 @@ ruby '2.4.1'
 gem 'rails', '4.2.8'
 # Use postgresql as the database for Active Record
 gem 'pg'
+
 gem 'rails_12factor', group: :production
 #Safe Password Hashing
 gem 'bcrypt'
