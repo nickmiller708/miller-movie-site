@@ -1,0 +1,52 @@
+<div class='row'>
+  <div class='col-md-2'> </div>
+  <div class='col-md-8'>
+    <div class='panel-primary'>
+      <div class='panel-body'>
+        <h3> Search for a film by title or year </h3> 
+    <%= form_tag(movie_searches_path, method: :get, class: 'form-horiztonal') do %> 
+
+    <div class='row'>
+      <div class='col-md-6'>
+      <%= text_field_tag 'movies[search]', nil, placeholder: "Title", class: "form-control" %> 
+        </div> 
+      <div class='col-md-6'>
+      <%= number_field_tag 'movies[year]', nil, placeholder: "Year", class: "form-control" %>
+        </div>
+      </div>
+      <div class='row'>
+          <div class='col-md-2'>
+      <%= submit_tag "Search", class: 'btn btn-success' %>
+          </div> 
+          <div class='col-md-10'></div>   
+      </div> 
+      </div> 
+    <% end %> 
+  </div> 
+    </div>
+  </div> 
+  <div class='col-md-2'> </div> 
+</div>
+<% if @results.present? %> 
+<div class='row'>
+  <div class='col-md-2'></div>
+  <div class='col-md-10'> 
+    <% @results.each do |element| %> 
+      <div class='row'>
+        <div class='col-md-2'>
+          <img src="<%= element.poster %>" style="max-width: 100%"></img> 
+        </div>
+        <div class='col-md-6'>
+          <strong> Title </strong> <%= element.title %> <br>
+          <strong> Type of Media </strong> <%= element.type %> <br>
+          <strong> Year Released: </strong> <%= element.year %> 
+        </div>
+        <div class='col-md-2'>
+            <%= link_to "View More", movie_search_path(element.imdb_id) %> 
+        </div> 
+      </div> 
+    <% end%>  
+  </div>
+  <div class='col-md-2'></div> 
+</div>  
+<% end %> 
