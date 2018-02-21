@@ -34,7 +34,11 @@
     <% @results.each do |element| %> 
       <div class='row'>
         <div class='col-md-2'>
+          <% if !element.poster.eql?("N/A") %>
           <img src="<%= element.poster %>" style="max-width: 100%"></img> 
+          <% else %>
+          No Image Found :(
+          <% end %> 
         </div>
         <div class='col-md-6'>
           <strong> Title </strong> <%= element.title %> <br>
