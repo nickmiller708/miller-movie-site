@@ -1,1 +1,45 @@
-<%= @movie.to_json %> 
+<div class='row'>
+  <div class='col-md-4'>
+    <img src="<%= @movie.poster%>" style="max-width: 100%"></img> 
+  </div> 
+  <div class='col-md-6'>
+    <h2> <%= @movie.title %> (<%= @movie.released.split.last %>) Rated: <%= @movie.rated %>  </h2>
+      <div class="row">
+           <div class="col-md-4">
+            <strong> Rotten Tomatoes </strong> <br> 
+            <%= @movie.rotten_tomatoes.present? ? @movie.rotten_tomatoes : "No Rotten Tomatoes Information" %> 
+            <%= @movie.fresh_movie? ? "Fresh" : "Rotten" %>
+        </div>   
+          <div class="col-md-4">
+          <strong> Imdb Information </strong> 
+          <% imdb_information = @movie.imdb_information %> <br>
+          IMDB Rating: <%= imdb_information["imdb_rating"] %> <br>
+          IMDB Votes: <%= imdb_information["imdb_votes"] %> <br> 
+          <a href="<%= @movie.imdb_link%>" class="btn btn-success btn-md">
+              <i class="fa fa-imdb"></i> Imdb Link
+            </a>           
+        </div> 
+        <div class="col-md-4">
+            <strong> Metacritic Ratings </strong> <br>  
+            <strong> Metacritic ranking</strong>  <%= @movie.metacritic %> <br>
+            <strong> <%= @movie.determine_metacritic_rank %> </strong>  
+            <div style="width: 25px; height: 25px; background-color: <%= @movie.determine_metric_color %>"></div>
+        </div>   
+      </div> 
+        <div class='col-md-4'></div>
+    </div>  
+    <div class="row">
+      <div class='col-md-12'>
+      <strong> Plot: </strong> 
+      <%= @movie.plot %> <br> 
+      <strong> Starring: </strong>
+      <%= @movie.actors %> <br> 
+      <strong> Directed By: </strong> <%= @movie.director %><br>
+      <strong> Written By: </strong> <%= @movie.writer %> <br> 
+      <strong> Awards: </strong> <%= @movie.awards %> <br> 
+      <strong> Released: </strong> <%= @movie.released %> <br>
+      <strong> Blu Ray release: </strong> <%= @movie.dvd.present? ? @movie.dvd : "Not Announced" %> 
+      </div> 
+    </div> 
+  </div> 
+</div> 

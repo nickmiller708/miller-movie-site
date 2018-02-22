@@ -35,7 +35,7 @@ module Services
       json_response = JSON.parse(response)
       if json_response.keys.include?("Search")
         json_response["Search"].map do |search_result|
-          Services::Movies::Movie.new(search_result)
+          Services::Movies::Movie.new(search_result.merge(search: true))
         end 
       else 
         Services::Movies::Movie.new(json_response)

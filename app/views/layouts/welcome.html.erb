@@ -12,22 +12,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <%= csrf_meta_tags %>
-<style>
-body {
-  padding-bottom: 250px;
-}
-</style>
+
 </head>
 <body>
-  <div class='header'>
-      <%= render  'welcome/header' %>
-  </div>
-  <div class='container-fluid main'> 
-<%= yield %> 
-  </div>
 
-  <div class='footer'>
+      <%= render  'welcome/header' %>
+<div class='container'>
+<%= yield %> 
+</div>
+ 
         <%= render  'welcome/footer' %> 
-  </div>
 </body>
 </html>

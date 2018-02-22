@@ -7,13 +7,8 @@
     <%= form_tag(movie_searches_path, method: :get, class: 'form-horiztonal') do %> 
 
     <div class='row'>
-      <div class='col-md-6'>
       <%= text_field_tag 'movies[search]', nil, placeholder: "Title", class: "form-control" %> 
-        </div> 
-      <div class='col-md-6'>
       <%= number_field_tag 'movies[year]', nil, placeholder: "Year", class: "form-control" %>
-        </div>
-      </div>
       <div class='row'>
           <div class='col-md-2'>
       <%= submit_tag "Search", class: 'btn btn-success' %>
@@ -27,7 +22,7 @@
   </div> 
   <div class='col-md-2'> </div> 
 </div>
-<% if @results.present? %> 
+<% if @results.present? %>
 <div class='row'>
   <div class='col-md-2'></div>
   <div class='col-md-10'> 
