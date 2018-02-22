@@ -20,7 +20,7 @@
             </a>           
         </div> 
         <div class="col-md-4">
-            <% if @movie.metric.present? 
+            <% if @movie.metric.present? %>
             <strong> Metacritic Ratings </strong> <br>  
             <strong> Metacritic ranking</strong>  <%= @movie.metacritic %> <br>
             <strong> <%= @movie.determine_metacritic_rank %> </strong>  
