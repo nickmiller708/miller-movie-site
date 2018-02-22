@@ -20,10 +20,12 @@
             </a>           
         </div> 
         <div class="col-md-4">
+            <% if @movie.metric.present? 
             <strong> Metacritic Ratings </strong> <br>  
             <strong> Metacritic ranking</strong>  <%= @movie.metacritic %> <br>
             <strong> <%= @movie.determine_metacritic_rank %> </strong>  
             <div style="width: 25px; height: 25px; background-color: <%= @movie.determine_metric_color %>"></div>
+            <% end %> 
         </div>   
       </div> 
         <div class='col-md-4'></div>
