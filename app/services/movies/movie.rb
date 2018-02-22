@@ -32,7 +32,7 @@ module Services
       find_information(['imdb', 'internet'])
     end
  
-    def metacritic
+    def metacritic_information
       find_information(['meta'])
     end 
     
@@ -93,7 +93,7 @@ module Services
       instance_variables.map{|element| element.to_s.gsub('@', '')}
     end 
     def metacritic_raw_score
-      metacritic.present? ? metacritic.gsub("/100", "").to_i : 0
+      (metacritic.present? && !metacritic.eql?("N/A")) ? metacritic.gsub("/100", "").to_i : 0
     end 
     end
   end 
