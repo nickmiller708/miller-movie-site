@@ -17,7 +17,8 @@ module Services
     end 
 
     def fresh_movie? 
-      if rotten_tomatoes.present?
+      available_params = rotten_info 
+      if available_params.keys.include?("rotten_tomatoes")
         rotten_tomatoes.gsub('%','').to_i >= 60
       else 
         false

@@ -14,6 +14,11 @@ module Services
       end 
     end 
 
+    def title(title)
+      search_by_contents(title: title)
+      finish_search
+    end 
+    
     def finish_search
       @omdb_search_client.search
     end 
