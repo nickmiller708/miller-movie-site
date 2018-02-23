@@ -25,9 +25,19 @@ module Services
       @url = "http://omdbapi.com/?apikey=#{@api_key}" unless @url.present?
       if movie_info.present? 
           movie_type, movie_description = movie_info 
-          @url+= "&#{movie_type.to_s.first}=#{movie_description}"
+          movie_type=determine_type(movie_type)
+          @url+= "&#{movie_type}=#{movie_description}"
       end
     end 
+
+    def determine_type(movies)
+      case movies.to_s
+      when 'type'
+        'type'
+      else
+        movies.to_s.first
+      end 
+    end
 
     def create_movie
       uri = URI(@url)

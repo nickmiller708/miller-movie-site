@@ -7,7 +7,8 @@
     <%= form_tag(movie_searches_path, method: :get, class: 'form-horiztonal') do %> 
 
     <div class='row'>
-      <%= text_field_tag 'movies[search]', nil, placeholder: "Title", class: "form-control" %> 
+      <%= text_field_tag 'movies[search]', nil, placeholder: "Title", class: "form-control", autocomplete: 'off' %> 
+      <%= select_tag 'movies[type]', options_for_select(['Movie', 'Series', 'Episode']), class: "form-control", autocomplete: 'off' %> 
       <%= number_field_tag 'movies[year]', nil, placeholder: "Year", class: "form-control" %>
       <div class='row'>
           <div class='col-md-2'>
