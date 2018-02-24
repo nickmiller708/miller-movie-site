@@ -6,7 +6,7 @@ class MovieSearchesController < ApplicationController
   def index  
     if params[:movies].present?
       search_client= Services::Movies::OmdbSearch.new
-      search_client.search_by_contents(params[:movies])
+      search_client.send_contents(params[:movies])
       @results = search_client.finish_search 
       @results = [] if !@results.is_a?(Array) && @results.response.eql?("False")
     end  

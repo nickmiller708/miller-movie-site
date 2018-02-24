@@ -12,12 +12,12 @@
                  Most Recent Reviews 
                 </div>
                 <div class='panel-body'>
-              <% Category.all.each do |category| %>
-                <% recent_reviews = category.review_posts[0 .. 5] %>            
+                <% @reviews.each do |category, reviews| %> 
                 <strong> <%= "Recent #{category.category_name} Reviews" %>   </strong> 
                 <table class='table table-condensed'>
-                  <% if recent_reviews.present? %> 
-                  <% recent_reviews.each do |review| %> 
+                  <% if reviews.present? %> 
+                    <% reviews = reviews.reverse.take(5) %>      
+                  <% reviews.each do |review| %> 
                     <tr>
                       <td>
                         <%= review.title %> 

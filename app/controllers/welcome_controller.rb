@@ -4,6 +4,7 @@ class WelcomeController < ApplicationController
 
     # GET welcome
   def index
+    @reviews = ReviewPost.all.sort_by(&:updated_at).group_by(&:category) 
     @active="index" 
   end
     
