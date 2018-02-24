@@ -40,7 +40,7 @@
       <strong> Written By: </strong> <%= @movie.writer %> <br> 
       <strong> Awards: </strong> <%= @movie.awards %> <br> 
       <strong> Released: </strong> <%= @movie.released %> <br>
-      <strong> Blu Ray release: </strong> <%= @movie.dvd.present? ? @movie.dvd : "Not Announced" %> 
+      <strong> Blu Ray release: </strong> <%= @movie.try(:dvd).present? ? @movie.dvd : "Not Announced" %> 
       </div> 
     </div> 
   </div> 
