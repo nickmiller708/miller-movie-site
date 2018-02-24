@@ -16,7 +16,8 @@ class MovieSearchesController < ApplicationController
   private
   def find_by_imdb_id
     search_client = Services::Movies::OmdbSearch.new
-    search_client.search_by_contents({imdb: params[:id]})
+    search_client.search_by_contents({imdb: params[:id], plot: 'full'})
+    @movie_link = search_client.omdb_search_client.url
     @movie = search_client.finish_search
   end 
 end 

@@ -34,6 +34,8 @@ module Services
       case movies.to_s
       when 'type'
         'type'
+      when 'plot'
+        'plot'
       else
         movies.to_s.first
       end 
