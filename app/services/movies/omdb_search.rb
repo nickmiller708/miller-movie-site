@@ -18,13 +18,6 @@ module Services
       search_by_contents(title: title)
       finish_search
     end 
-
-    def send_contents(contents)
-      contents.each do |content|
-        content_type, information = content
-        search_by_contents(format_hash(content_type, information))
-      end 
-    end 
     
     def finish_search
       @omdb_search_client.search
