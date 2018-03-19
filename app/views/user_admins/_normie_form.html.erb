@@ -1,0 +1,40 @@
+<%= form_for(@user_admin, url: normie_registration_path) do |f| %>
+  <% if @user_admin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_admin.errors.count, "error") %> prohibited this user_admin from being saved:</h2>
+
+      <ul>
+      <% @user_admin.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+     <table class='table-condensed '>
+        <tbody> 
+          <tr>
+          <td>    <%= f.label :name %> </td>
+          <td>    <%= f.text_field :name %> </td> 
+        </tr> 
+          <tr>
+ <td>    <%= f.label :username %></td>
+ <td>    <%= f.text_field :username %> </td>
+          </tr> 
+    <tr>
+ 
+          <tr>
+           <td>    <%= f.label :email %></td>
+           <td>    <%= f.text_field :email %> </td>
+          </tr> 
+      <td>    <%= f.label :password %> </td>
+      <td>    <%= f.password_field :password %> </td>
+    </tr>
+        <tr>
+          <td>
+          <% button_text = @editable ? "Edit Your Account" : "Create Your Account" %> 
+    <%= f.submit button_text, class: 'btn btn-primary' %>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+<% end %>

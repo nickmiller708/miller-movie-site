@@ -1,6 +1,6 @@
 class UserAdminsController < ApplicationController
   before_action :set_user_admin, only: [:show, :edit, :update, :destroy]
-  before_action :check_session_user, except: [:login, :process_login, :create, :new, :user_login] 
+  before_action :check_session_user, except: [:login, :process_login, :create, :new, :user_login, :new_regular_user, :normie_registration] 
   layout 'welcome'
 
   def sign_out
@@ -34,6 +34,38 @@ class UserAdminsController < ApplicationController
       redirect_to admin_login_path 
     end
   end  
+
+  def new_regular_user
+    @user_admin = UserAdmin.new 
+  end 
+
+  def normie_registration 
+    user = user_admin_params
+    if (cookies[:authentication_token].present?)
+      @user_admin = UserAdmin.new(user_admin_params.merge(user_type: 'regular')
+      @user_admin.encrypt_password(user[:password])
+    end   
+    if @user_admin.valid?
+    respond_to do |format|
+      if @user_admin.save
+        flash[:notice] = "Congrats! User Account Created!"
+        format.html { redirect_to admin_homepage_path, notice: 'Account Successfully Created!.' }
+        format.json { render :show, status: :created, location: @user_admin }
+      else
+        format.html { render :new }
+        format.json { render json: @user_admin.errors, status: :unprocessable_entity }
+      end
+    end
+    else 
+      if cookies[:authentication_token].nil?
+      flash[:danger] = @user_admin.errors.full_messages.join(' <br>') || "Need an Invite Code to become an Admin. "
+      redirect_to :back
+      else 
+      flash[:danger] = "One user already has an account name with username #{params[:user_admin][:username]}"
+      redirect_to :back
+        end 
+      end
+  end 
   # GET /user_admins
   # GET /user_admins.json
   def index
@@ -66,7 +98,7 @@ class UserAdminsController < ApplicationController
     user = user_admin_params
     invite_only = UserAdmin.find_by(username: 'invite_only') unless cookies[:authentication_token].present? || params[:user_type].eql?('normal')
     if (cookies[:authentication_token].present?) || (params[:user_type].eql?('normal')) || (invite_only.valid_password? params[:invite_password] )
-      @user_admin = UserAdmin.new(username: user[:username], name: user[:name])
+      @user_admin = UserAdmin.new(user_admin_params.merge(user_type: 'admin')
       @user_admin.encrypt_password(user[:password])
     end   
     if @user_admin.valid?
@@ -134,6 +166,6 @@ class UserAdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_admin_params
-      params.require(:user_admin).permit(:name, :username, :password)
+      params.require(:user_admin).permit(:name, :username, :password, :user_type, :email)
     end
 end

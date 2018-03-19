@@ -16,6 +16,8 @@
       </div> 
      <% end %> 
     <%= form_tag process_login_path do %>
+
+      <%= hidden_field_tag :user_type, nil, value: "admin" %> 
       <table class='table-condensed '>
         <tbody> 
           <tr>

@@ -1,0 +1,26 @@
+<div class='container'>
+  <div class='row'>
+  <div class='col-xs-12'>
+  <% if flash[:notice].present? %> 
+      <div style="color: green;"> 
+        Admin Message: 
+        <%= flash[:notice].join(' \n') %> 
+      </div> 
+  <% end %> 
+
+     <% if  flash[:danger].present? %> 
+      <div style="color: red;"> 
+        Error Processing Login: <br>  
+        <%= flash[:danger].html_safe %> 
+      </div> 
+     <% end %> 
+
+<h1>Create User Account</h1>
+  <%= render 'normie_form' %>
+  <% unless session[:user].present? %> 
+  <br>
+    Go Back to Login Page: <%= link_to 'User Login Page', :back, class: 'btn btn-primary' %>
+  <% end %> 
+</div> 
+</div>
+</div> 

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post '/admin/process_login', to: 'user_admins#process_login', as: :process_login
   get '/admin/sign_out', to: 'user_admins#sign_out', as: :sign_out
   get '/login', to: 'user_admins#user_login', as: :user_login
+  get '/sign_up/regular', to: 'user_admins#new_regular_user', as: :new_regular_user
+  post '/sign_up/regular/register', to: 'user_admins#normie_registration', as: :normie_registration
   get '/sign_up', to: 'user_admins#user_signup', as: :user_signup
   get '/homepage', to: 'user_admins#user_homepage', as: :user_homepage
   get '/reset_password', to: 'user_admins#reset_password', as: :reset_password
