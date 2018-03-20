@@ -97,8 +97,8 @@ class UserAdminsController < ApplicationController
   def create
     user = user_admin_params
     invite_only = UserAdmin.find_by(username: 'invite_only') unless cookies[:authentication_token].present? || params[:user_type].eql?('normal')
-    if (cookies[:authentication_token].present?) || (params[:user_type].eql?('normal')) || (invite_only.valid_password? params[:invite_password] )
-      @user_admin = UserAdmin.new(user_admin_params.merge(user_type: 'admin')
+    if (cookies[:authentication_token].present?) || (invite_only.valid_password? params[:invite_password] )
+      @user_admin = UserAdmin.new(user_admin_params.merge(user_type: 'admin'))
       @user_admin.encrypt_password(user[:password])
     end   
     if @user_admin.valid?
