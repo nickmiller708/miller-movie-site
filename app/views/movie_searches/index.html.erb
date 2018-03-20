@@ -9,7 +9,7 @@
     <div class='row'>
       <%= text_field_tag 'movies[search]', nil, placeholder: "Title", class: "form-control", autocomplete: 'off' %> 
       <%= select_tag 'movies[type]', options_for_select(['Movie', 'Series', 'Episode', 'Game']), class: "form-control", autocomplete: 'off' %> 
-      <%= number_field_tag 'movies[year]', nil, placeholder: "Year", class: "form-control" %>
+      <%= number_field_tag 'movies[year]', nil, placeholder: "Year", class: "form-control", value: Date.today.year %>
       <div class='row'>
           <div class='col-md-2'>
       <%= submit_tag "Search", class: 'btn btn-success' %>
