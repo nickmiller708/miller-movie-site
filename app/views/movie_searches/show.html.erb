@@ -1,9 +1,10 @@
-<div class='row'>
-  <div class='col-md-4'>
+<table class='table-condensed'> 
+  <tr> 
+  <td class='col-md-4'>
     <img src="<%= @movie.poster%>" style="max-width: 100%"></img> 
-  </div> 
-  <div class='col-md-6'>
-    <h2> <%= @movie.title %> (<%= @movie.released.split.last %>) Rated: <%= @movie.rated %>  </h2>
+  </td> 
+  <td class='col-md-6'>
+    <h3> <%= @movie.title %> (<%= @movie.released.split.last %>) Rated: <%= @movie.rated %>  </h3>
       <div class="row">
            <div class="col-md-4">
             <strong> Rotten Tomatoes </strong> <br> 
@@ -29,19 +30,70 @@
         </div>   
       </div> 
         <div class='col-md-4'></div>
-    </div>  
-    <div class="row">
-      <div class='col-md-12'>
-      <strong> Plot: </strong> 
-      <%= @movie.plot %> <br> 
-      <strong> Starring: </strong>
-      <%= @movie.actors %> <br> 
-      <strong> Directed By: </strong> <%= @movie.director %><br>
-      <strong> Written By: </strong> <%= @movie.writer %> <br> 
-      <strong> Awards: </strong> <%= @movie.awards %> <br> 
-      <strong> Released: </strong> <%= @movie.released %> <br>
-      <strong> Blu Ray release: </strong> <%= @movie.try(:dvd).present? ? @movie.dvd : "Not Announced" %> 
-      </div> 
-    </div> 
-  </div> 
+    </td>  
+    <tr >
+      <td class='col-md-12'>
+        <tr> 
+          <td class='col-md-2'>
+            Plot 
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.plot %> 
+          </td>
+        </tr>
+        <tr> 
+          <td class='col-md-2'>
+            Starring
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.actors %> 
+          </td>
+        </tr>
+        <tr> 
+          <td class='col-md-2'>
+            Directed By: 
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.writer %> 
+          </td>
+        </tr>
+
+        <tr> 
+          <td class='col-md-2'>
+            Wrtier
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.writer %> 
+          </td>
+        </tr>
+        <tr> 
+          <td class='col-md-2'>
+            Awards and Nominations 
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.awards %> 
+          </td>
+        </tr>
+
+        <tr> 
+          <td class='col-md-2'>
+            Release Date: 
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.released %> 
+          </td>
+        </tr>
+
+        <tr> 
+          <td class='col-md-2'>
+            Dvd/Blu Ray Release
+          </td>
+          <td class='col-md-10'>
+            <%= @movie.try(:dvd).present? ? @movie.dvd : "Not Announced" %> 
+          </td>
+        </tr>
+
+      </td> 
+    </tr> 
+  </table> 
 </div> 
