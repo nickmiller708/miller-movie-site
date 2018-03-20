@@ -1,5 +1,6 @@
 class ReviewPostsController < ApplicationController
   before_action :set_review_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_title, only: :show
   before_action :check_session_user, except: :show
   layout 'welcome'
   # GET /review_posts
@@ -82,6 +83,10 @@ class ReviewPostsController < ApplicationController
     def set_review_post
       @review_post = ReviewPost.find(params[:id])
     end
+
+    def set_title
+      @title = @review_post.title
+    end 
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_post_params

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome Friends</title>
+  <title><%= @title.present? ? @title : "Welcome Friends" %> </title>
   <%= stylesheet_link_tag  'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' %> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -15,7 +15,6 @@
 
 </head>
 <body>
-
       <%= render  'welcome/header' %>
   <div class='container'>
     <div class'container-fluid'>
@@ -23,6 +22,5 @@
 
     </div>
   </div>
- 
 </body>
 </html>
