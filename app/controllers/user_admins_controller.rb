@@ -42,7 +42,7 @@ class UserAdminsController < ApplicationController
   def normie_registration 
     user = user_admin_params
     if (cookies[:authentication_token].present?)
-      @user_admin = UserAdmin.new(user_admin_params.merge(user_type: 'regular')
+      @user_admin = UserAdmin.new(user_admin_params.merge(user_type: 'regular'))
       @user_admin.encrypt_password(user[:password])
     end   
     if @user_admin.valid?
