@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_session_user, only: [:destroy]
   # GET /comments
   # GET /comments.json
   def index
@@ -54,11 +54,15 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if @user.present? && @comment.review_post.user_admin.eql?(@user)
+      @comment.destroy
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Comment was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to :back, notice: "Can't delete comments unless you are the author of the post" 
+    end 
   end
 
   private
@@ -67,6 +71,15 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
+    def check_session_user
+      auth_token = cookies[:authentication_token] || cookies.permanent[:authentication_token] || nil
+      if auth_token.nil?
+        flash[:notice] = "Admin Access Required. No User Logged In! Redirected to Login Page" unless flash[:notice].present?
+        redirect_to admin_login_path 
+      else 
+        @user = UserAdmin.find_by(password_token: cookies[:authentication_token]) 
+      end 
+    end 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:name, :comment, :review_post_id)    
