@@ -5,13 +5,13 @@
   </td> 
   <td class='col-md-6'>
     <h3> <%= @movie.title %> (<%= @movie.released.split.last %>) Rated: <%= @movie.rated %>  </h3>
-      <div class="row">
-           <div class="col-md-4">
+      <tr>
+           <td class="col-md-4">
             <strong> Rotten Tomatoes </strong> <br> 
             <strong> Current Score: </strong> <%= @movie.try(:rotten_tomatoes).present? ? @movie.rotten_tomatoes : "No Rotten Tomatoes Information" %> <br>
             <strong> Movie Status </strong> <%= @movie.fresh_movie? ? "Fresh" : "Rotten" %>
-        </div>   
-          <div class="col-md-4">
+        </td>   
+          <td class="col-md-4">
           <strong> Imdb Information </strong> 
           <% imdb_information = @movie.imdb_information %> <br>
           IMDB Rating: <%= imdb_information["imdb_rating"] %> <br>
@@ -19,17 +19,16 @@
           <a href="<%= @movie.imdb_link%>" class="btn btn-success btn-md">
               <i class="fa fa-imdb"></i> Imdb Link
             </a>           
-        </div> 
-        <div class="col-md-4">
+        </td> 
+        <td class="col-md-4">
             <% if @movie.methods.include?(:metacritic) %>
             <strong> Metacritic Ratings </strong> <br>  
             <strong> Metacritic ranking</strong>  <%= @movie.metacritic %> <br>
             <strong> <%= @movie.determine_metacritic_rank %> </strong>  
             <div style="width: 25px; height: 25px; background-color: <%= @movie.determine_metric_color %>"></div>
             <% end %> 
-        </div>   
-      </div> 
-        <div class='col-md-4'></div>
+        </td>   
+      </tr> 
     </td>  
     <tr >
       <td class='col-md-12'>
