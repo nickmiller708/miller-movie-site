@@ -1,15 +1,15 @@
  <h3> <%= @movie.title %> (<%= @movie.released.split.last %>) Rated: <%= @movie.rated %>  </h3>
 <table class='table-condensed'> 
-  <tr> 
-  <td class='col-md-2' >
-    <img src="<%= @movie.poster%>" style="max-width: 100%"></img> 
-  </td> 
-           <td class="col-md-4">
+  <tr > 
+    <td class='col-md-2' >
+      <img src="<%= @movie.poster%>" style="max-width: 100%"></img> 
+    </td> 
+        <td class='col-md-3'>
             <strong> Rotten Tomatoes </strong> <br> 
             <strong> Current Score: </strong> <%= @movie.try(:rotten_tomatoes).present? ? @movie.rotten_tomatoes : "No Rotten Tomatoes Information" %> <br>
             <strong> Movie Status </strong> <%= @movie.fresh_movie? ? "Fresh" : "Rotten" %>
         </td>   
-          <td class="col-md-4">
+          <td class='col-md-3'>
           <strong> Imdb Information </strong> 
           <% imdb_information = @movie.imdb_information %> <br>
           IMDB Rating: <%= imdb_information["imdb_rating"] %> <br>
@@ -18,17 +18,17 @@
               <i class="fa fa-imdb"></i> Imdb Link
             </a>           
         </td> 
-        <td class="col-md-4">
             <% if @movie.methods.include?(:metacritic) %>
+        <td class="col-md-3">
             <strong> Metacritic Ratings </strong> <br>  
             <strong> Metacritic ranking</strong>  <%= @movie.metacritic %> <br>
             <strong> <%= @movie.determine_metacritic_rank %> </strong>  
             <div style="width: 25px; height: 25px; background-color: <%= @movie.determine_metric_color %>"></div>
-            <% end %> 
         </td>   
+            <% else %>
+              <td class='col-md-3'></td>
+            <% end %> 
   </tr>
-    <tr >
-      <td class='col-md-12'>
         <tr> 
           <td class='col-md-2'>
             Plot 
@@ -88,8 +88,5 @@
             <%= @movie.try(:dvd).present? ? @movie.dvd : "Not Announced" %> 
           </td>
         </tr>
-
-      </td> 
-    </tr> 
   </table> 
 </div> 
